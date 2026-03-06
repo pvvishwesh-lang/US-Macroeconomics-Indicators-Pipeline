@@ -48,6 +48,12 @@ The pipeline runs automatically on the 1st Tuesday of every month, with email al
 
 
 ## Streamlit App
+![Image 1 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/App%20Page.png)
+![Image 2 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/Pipeline%20Status.png)
+![Image 3 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/Pipeline%20Trigger.png)
+![Image 4 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/Monitoring%20Page.png)
+![Image 5 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/Dashboard%20Page.png)
+![Image 6 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/About%20Page.png)
 
 
 ## How to Run
