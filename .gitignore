@@ -3,3 +3,4 @@
 __pycache__/
 .databricks/
 *.pyc
+.streamlit/secrets.toml
