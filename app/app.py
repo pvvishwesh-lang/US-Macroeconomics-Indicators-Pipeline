@@ -21,7 +21,7 @@ st.sidebar.markdown("End to end data engineering and ML pipeline built on Databr
 st.sidebar.divider()
 st.sidebar.markdown("### Links")
 st.sidebar.markdown("[GitHub](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline)")
-st.sidebar.markdown("[LinkedIn](www.linkedin.com/in/vishwesh-p-v)")
+st.sidebar.markdown("[LinkedIn](https://www.linkedin.com/in/vishwesh-p-v)")
 st.sidebar.divider()
 st.sidebar.markdown("### Tech Stack")
 st.sidebar.markdown("PySpark · Delta Lake · MLflow · FRED API · Databricks · Streamlit")
