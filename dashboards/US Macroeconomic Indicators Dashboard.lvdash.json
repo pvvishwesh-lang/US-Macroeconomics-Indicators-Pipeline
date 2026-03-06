@@ -1,0 +1,1060 @@
+{
+  "datasets": [
+    {
+      "name": "4e24417a",
+      "displayName": "US Macroeconomic Indicators Dashboard",
+      "queryLines": [
+        "select obs_date,CPI,DGS10,FEDFUNDS,M2SL,UNRATE,MORTGAGE30US,GDP,is_quarter_start,is_recession from wide_macro_indicators"
+      ],
+      "catalog": "us_macroeconomics_tracker",
+      "schema": "silver"
+    },
+    {
+      "name": "eb8bec44",
+      "displayName": "indicators",
+      "queryLines": [
+        "SELECT * FROM us_macroeconomics_tracker.bronze.indicators"
+      ],
+      "catalog": "us_macroeconomics_tracker",
+      "schema": "bronze"
+    },
+    {
+      "name": "79c4392d",
+      "displayName": "annual_macro_summary",
+      "queryLines": [
+        "SELECT * FROM us_macroeconomics_tracker.gold.annual_macro_summary"
+      ],
+      "catalog": "us_macroeconomics_tracker",
+      "schema": "gold"
+    },
+    {
+      "name": "085dc3ec",
+      "displayName": "recession_predictions",
+      "queryLines": [
+        "SELECT *,case when \n",
+        "recession_probability * 100 < 10 then \"0-10%\"\n",
+        "when recession_probability * 100 < 25 then \"10-25%\"\n",
+        "when recession_probability * 100 < 50 then \"25-50%\"\n",
+        "else \"50%+\"\n",
+        "end as Probability_Bucket FROM us_macroeconomics_tracker.gold.recession_predictions"
+      ],
+      "catalog": "us_macroeconomics_tracker",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "9e3e68de",
+      "displayName": "Page 1",
+      "layout": [
+        {
+          "widget": {
+            "name": "total-monthly-observations",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "count(obs_date)",
+                      "expression": "COUNT(`obs_date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "rowsPerPage": 1,
+              "frame": {
+                "showTitle": true,
+                "title": "Total Monthly Observations"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "count(obs_date)",
+                    "contentAlignment": "center",
+                    "columnWidth": 0,
+                    "format": {
+                      "type": "number-plain",
+                      "abbreviation": "none",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "displayName": "Total Monthly Observations"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "7-economic-series-tracked",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "eb8bec44",
+                  "fields": [
+                    {
+                      "name": "series_id",
+                      "expression": "`series_id`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "rowsPerPage": 10,
+              "frame": {
+                "showTitle": true,
+                "title": "7 Economic Series Tracked"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "series_id",
+                    "contentAlignment": "center",
+                    "columnWidth": 0,
+                    "displayName": "7 Economic Series Tracked"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "data-from",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "min(obs_date)",
+                      "expression": "MIN(`obs_date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "rowsPerPage": 1,
+              "frame": {
+                "showTitle": true,
+                "title": "Data From"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "min(obs_date)",
+                    "contentAlignment": "center",
+                    "columnWidth": 0,
+                    "format": {
+                      "type": "date-time",
+                      "date": "locale-long-month",
+                      "time": "locale-hour-minute",
+                      "leadingZeros": true
+                    },
+                    "displayName": "Data From",
+                    "style": {
+                      "type": "basic"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "data-through",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "max(obs_date)",
+                      "expression": "MAX(`obs_date`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "rowsPerPage": 1,
+              "frame": {
+                "showTitle": true,
+                "title": "Data Through"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "max(obs_date)",
+                    "contentAlignment": "center",
+                    "columnWidth": 0,
+                    "format": {
+                      "type": "date-time",
+                      "date": "locale-long-month",
+                      "time": "locale-hour-minute",
+                      "leadingZeros": true
+                    },
+                    "displayName": "Data Through"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "391e5b19",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "2a28ff83",
+            "queries": [
+              {
+                "name": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_yearly(obs_date)",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "yearly(obs_date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `obs_date`)"
+                    },
+                    {
+                      "name": "yearly(obs_date)_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "yearly(obs_date)",
+                    "displayName": "YEARLY(obs_date)",
+                    "queryName": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_yearly(obs_date)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "917fff6b",
+            "queries": [
+              {
+                "name": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_monthly(obs_date)",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "monthly(obs_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `obs_date`)"
+                    },
+                    {
+                      "name": "monthly(obs_date)_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "monthly(obs_date)",
+                    "displayName": "MONTHLY(obs_date)",
+                    "queryName": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_monthly(obs_date)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "e0226747",
+            "queries": [
+              {
+                "name": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_daily(obs_date)",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "daily(obs_date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `obs_date`)"
+                    },
+                    {
+                      "name": "daily(obs_date)_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "daily(obs_date)",
+                    "displayName": "DAILY(obs_date)",
+                    "queryName": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_daily(obs_date)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "da0b4064",
+            "queries": [
+              {
+                "name": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_is_recession",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "is_recession",
+                      "expression": "`is_recession`"
+                    },
+                    {
+                      "name": "is_recession_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "is_recession",
+                    "queryName": "dashboards/01f11846699d1cadb836efdad84770fb/datasets/01f118467cc818829d42edb86e39a4fd_is_recession"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "60b15dc2",
+      "displayName": "Page 2",
+      "layout": [
+        {
+          "widget": {
+            "name": "fed-funds-rate-vs-inflation-cpi-1947-2025",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "obs_date",
+                      "expression": "`obs_date`"
+                    },
+                    {
+                      "name": "avg(FEDFUNDS)",
+                      "expression": "AVG(`FEDFUNDS`)"
+                    },
+                    {
+                      "name": "avg(CPI)",
+                      "expression": "AVG(`CPI`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Fed Funds Rate vs Inflation (CPI) 1947-2025"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "avg(FEDFUNDS)"
+                    },
+                    {
+                      "fieldName": "avg(CPI)"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "us-unemployment-rate-1948-2025",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "obs_date",
+                      "expression": "`obs_date`"
+                    },
+                    {
+                      "name": "avg(UNRATE)",
+                      "expression": "AVG(`UNRATE`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "US Unemployment Rate 1948-2025"
+              },
+              "mark": {
+                "size": 0
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(UNRATE)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "us-gdp-growth-1947-2025",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "yearly(obs_date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `obs_date`)"
+                    },
+                    {
+                      "name": "avg(GDP)",
+                      "expression": "AVG(`GDP`)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`is_quarter_start` IN (1)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "US GDP Growth 1947-2025"
+              },
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "yearly(obs_date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(GDP)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "mortgage-rate-vs-fed-funds-rate-1971-2025",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4e24417a",
+                  "fields": [
+                    {
+                      "name": "obs_date",
+                      "expression": "`obs_date`"
+                    },
+                    {
+                      "name": "avg(MORTGAGE30US)",
+                      "expression": "AVG(`MORTGAGE30US`)"
+                    },
+                    {
+                      "name": "avg(FEDFUNDS)",
+                      "expression": "AVG(`FEDFUNDS`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Mortgage Rate vs Fed Funds Rate 1971-2025"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "avg(MORTGAGE30US)"
+                    },
+                    {
+                      "fieldName": "avg(FEDFUNDS)"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "4e151d71",
+      "displayName": "Page 3",
+      "layout": [
+        {
+          "widget": {
+            "name": "annual-inflation-rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "79c4392d",
+                  "fields": [
+                    {
+                      "name": "obs_year",
+                      "expression": "`obs_year`"
+                    },
+                    {
+                      "name": "avg(yoy_cpi_growth)",
+                      "expression": "AVG(`yoy_cpi_growth`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Annual Inflation Rate"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(yoy_cpi_growth)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 9
+          }
+        },
+        {
+          "widget": {
+            "name": "annual-gdp-growth-rate",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "79c4392d",
+                  "fields": [
+                    {
+                      "name": "obs_year",
+                      "expression": "`obs_year`"
+                    },
+                    {
+                      "name": "avg(yoy_gdp_growth)",
+                      "expression": "AVG(`yoy_gdp_growth`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Annual GDP Growth Rate"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(yoy_gdp_growth)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 9
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "50d25649",
+      "displayName": "Page 4",
+      "layout": [
+        {
+          "widget": {
+            "name": "latest-recession-probability",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "085dc3ec",
+                  "fields": [
+                    {
+                      "name": "max(recession_probability)",
+                      "expression": "MAX(`recession_probability`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Latest Recession Probability"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "max(recession_probability)",
+                    "format": {
+                      "type": "number-percent",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "contentAlignment": "center",
+                    "displayName": "Latest_Recession_Probability"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "actual-vs-predicted-recessions",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "085dc3ec",
+                  "fields": [
+                    {
+                      "name": "obs_date",
+                      "expression": "`obs_date`"
+                    },
+                    {
+                      "name": "is_recession",
+                      "expression": "`is_recession`"
+                    },
+                    {
+                      "name": "is_recession_predicted",
+                      "expression": "`is_recession_predicted`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Actual vs Predicted Recessions"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "is_recession"
+                    },
+                    {
+                      "fieldName": "is_recession_predicted"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "recession-probability-over-time",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "085dc3ec",
+                  "fields": [
+                    {
+                      "name": "obs_date",
+                      "expression": "`obs_date`"
+                    },
+                    {
+                      "name": "recession_probability",
+                      "expression": "`recession_probability`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Recession Probability Over Time"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "obs_date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "recession_probability",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "recession-probability-distribution",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "085dc3ec",
+                  "fields": [
+                    {
+                      "name": "Probability_Bucket",
+                      "expression": "`Probability_Bucket`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Recession Probability Distribution"
+              },
+              "widgetType": "histogram",
+              "encodings": {
+                "x": {
+                  "fieldName": "Probability_Bucket",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "displayName": "Count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#FAFAFB",
+        "dark": "#1F272D"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#11171C"
+      },
+      "fontColor": {
+        "light": "#11171C",
+        "dark": "#E8ECF0"
+      },
+      "selectionColor": {
+        "light": "#2272B4",
+        "dark": "#8ACAFF"
+      },
+      "widgetHeaderAlignment": "CENTER"
+    },
+    "applyModeEnabled": false
+  }
+}
