@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          
+      - name: Install dependencies
+        run: pip install nbformat yamllint
+        
+      - name: Check Notebook syntax
+        run: |
+          python -c "import nbformat; nbformat.read(open('notebooks/US_Macroeconomics_Tracker.ipynb'), as_version=4)"
+          python -c "import nbformat; nbformat.read(open('notebooks/Recession_Predictor.ipynb'), as_version=4)"
+          python -c "import nbformat; nbformat.read(open('notebooks/Gold_Model_Monitoring.ipynb'), as_version=4)"
+      - name: Check for hardcoded secrets
+        run: |
+          ! grep -r "password\s*=\s*['\"][^'\"]*['\"]" notebooks/
+          ! grep -r "api_key\s*=\s*['\"][^'\"]*['\"]" notebooks/
+          
+      - name: Check YAML syntax
+        run: yamllint pipeline/pipeline.yml
+        
+      - name: Check JSON syntax
+        run: |
+          python -m json.tool "dashboards/US Macroeconomic Indicators Dashboard.lvdash.json" > /dev/null
