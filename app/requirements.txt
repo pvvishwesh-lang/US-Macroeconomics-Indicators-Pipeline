@@ -1,0 +1,5 @@
+streamlit 
+databricks-sdk 
+pandas 
+plotly
+databricks-sql-connector
