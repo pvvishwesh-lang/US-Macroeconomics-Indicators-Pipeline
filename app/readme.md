@@ -10,3 +10,6 @@ Your Job ID: Jobs & pipelines->your pipeline->https://<id>.cloud.databricks.com/
 
 Your Dashboard URL: Dashboards->Your dashboard->Share->Embed Dashboard->iframe->Copy from src
 
+
+To Run, open a terminal and paste this:
+streamlit run app.py
