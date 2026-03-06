@@ -1,0 +1,46 @@
+resources:
+  jobs:
+    US_Macroeconomics_Pipeline:
+      name: US_Macroeconomics_Pipeline
+      email_notifications:
+        on_start:
+          - YOUR_EMAIL_ADDRESS
+        on_success:
+          - YOUR_EMAIL_ADDRESS
+        on_failure:
+          - YOUR_EMAIL_ADDRESS
+      notification_settings:
+        no_alert_for_skipped_runs: true
+      schedule:
+        quartz_cron_expression: 0 0 0 ? * 3#1
+        timezone_id: America/New_York
+        pause_status: UNPAUSED
+      tasks:
+        - task_key: US_Macroeconomics_Pipeline
+          notebook_task:
+            notebook_path: YOUR_NOTEBOOK_PATH
+            source: WORKSPACE
+        - task_key: US_Macroeconomics_Recession_Predictor
+          depends_on:
+            - task_key: US_Macroeconomics_Pipeline
+          notebook_task:
+            notebook_path: YOUR_NOTEBOOK_PATH
+            source: WORKSPACE
+        - task_key: US_Macroeconomics_Monitoring_Log
+          depends_on:
+            - task_key: US_Macroeconomics_Recession_Predictor
+          notebook_task:
+            notebook_path: YOUR_NOTEBOOK_PATH
+            source: WORKSPACE
+        - task_key: US_Macroeconomics_Dashboard
+          depends_on:
+            - task_key: US_Macroeconomics_Monitoring_Log
+          dashboard_task:
+            subscription:
+              subscribers:
+                - user_name: YOUR_EMAIL_ADDRESS
+            warehouse_id: YOUR_WAREHOUSE_ID
+            dashboard_id: YOUR_DASHBOARD_ID
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
