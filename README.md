@@ -111,8 +111,9 @@ python library.
 3. Set up a Databricks workspace and create the Unity Catalog `us_macroeconomics_tracker`
 4. Add your secrets to `.streamlit/secrets.toml`
 6. Run the notebooks in order: `US_Macroeconomics_Tracker` -> `Recession_Predictor` -> `Gold_Model_Monitoring`
-7. Install dependencies: `pip install -r app/requirements.txt`
-8. Run the app: `streamlit run app/app.py`
+7. Add the Dashboard file to your workspace and publish it
+8. Install dependencies: `pip install -r app/requirements.txt`
+9. Run the app: `streamlit run app/app.py`
 
 ## Key Findings
 - **October 2023** saw the highest predicted recession probability (32%) coinciding with the 10-year Treasury yield hitting 5% for the first time since 2007
