@@ -1,5 +1,10 @@
+# BEFORE YOU START
+
+## INSTALL THE FOLLOWING LIBRARY 
 pip install databricks-cli 
 
+
+## USING THE TERMINAL, RUN THE FOLLOWING COMMANDS AND MAKE SURE TO REPLACE THE SCOPENAMEs WITH YOUR VALUES
 databricks configure --token 
 
 databricks secrets create-scope --scope <scopeName>
