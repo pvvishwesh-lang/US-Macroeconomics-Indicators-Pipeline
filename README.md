@@ -112,7 +112,7 @@ python library.
 4. Add your secrets to `.streamlit/secrets.toml`
 6. Run the notebooks in order: `US_Macroeconomics_Tracker` -> `Recession_Predictor` -> `Gold_Model_Monitoring`
 7. Add the Dashboard file to your workspace and publish it
-8. Install dependencies: `pip install -r app/requirements.txt`
+8. Follow the instructions inside the other folders
 9. Run the app: `streamlit run app/app.py`
 
 ## Key Findings
