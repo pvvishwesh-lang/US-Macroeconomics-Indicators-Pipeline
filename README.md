@@ -11,9 +11,13 @@
 
 ## Overview
 This project is an end-to-end data engineering pipeline that ingests, processes, and analyzes economic data from the FRED API. 
+
 Data is stored using the medallion architecture (Bronze, Silver, Gold) in Databricks Lakehouse with PySpark and Delta Lake.
+
 A Logistic Regression model trained with MLflow predicts US recession probability with 92.5% accuracy. 
+
 Results are visualized via Power BI and/ or a Databricks Dashboard, accessible through this Streamlit app. 
+
 The pipeline runs automatically on the 1st Tuesday of every month, with email alerts for data quality issues and model drift detection.
 
 ## Architecture
