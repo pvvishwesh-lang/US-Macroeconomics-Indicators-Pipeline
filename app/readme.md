@@ -1,4 +1,6 @@
-Add the following to .streamlit/secrets.toml:
+# BEFORE YOU START THE WEB APP
+
+## Add the following to .streamlit/secrets.toml:
 
 Your Databricks Token: settings->developer->generate new token
 
@@ -10,6 +12,6 @@ Your Job ID: Jobs & pipelines->your pipeline->https://<id>.cloud.databricks.com/
 
 Your Dashboard URL: Dashboards->Your dashboard->Share->Embed Dashboard->iframe->Copy from src
 
-
+## HOW TO RUN
 To Run, open a terminal and paste this:
 streamlit run app.py
