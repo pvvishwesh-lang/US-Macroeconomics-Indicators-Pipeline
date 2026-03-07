@@ -33,7 +33,19 @@ The pipeline runs automatically on the 1st Tuesday of every month, with email al
 | CI/CD | GitHub Actions |
 
 ## Data Sources
+The datasource for this project is from the open source [FRED API](https://fredhelp.stlouisfed.org/fred/about/about-fred/what-is-fred/), which is actively maintained by the St Louis Federal Reserve. 
+Here, we use 8 of the core indicators, namely:
 
+| Sl No | Indicator | Description | Frequency |
+|---|---|---|---|
+| 1 | FEDFUNDS | Federal Funds Interest Rate | Monthly |
+| 2 | CPIAUCSL | Consumer Price Index (Inflation) | Monthly |
+| 3 | MORTGAGE30US | 30-Year Fixed Mortgage Rate | Weekly |
+| 4 | UNRATE | Unemployment Rate | Monthly |
+| 5 | DGS10 | 10-Year Treasury Yield | Daily |
+| 6 | GDP | Gross Domestic Product | Quarterly |
+| 7 | M2SL | M2 Money Supply | Monthly |
+| 8 | USREC | US Recession Indicator | Monthly |
 
 ## Pipeline
 
