@@ -45,7 +45,14 @@ The pipeline runs automatically on the 1st Tuesday of every month, with email al
 
 
 ## Dashboard
-
+![Image 1 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/Databricks%20Dashboard%20Page%201.png)
+![Image 2 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/Databricks%20Dashboard%20Page%202.png)
+![Image 3 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/Databricks%20Dashboard%20Page%203.png)
+![Image 4 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/Databricks%20Dashboard%20Page%204.png)
+![Image 5 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/PBI%20Page%201.png)
+![Image 6 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/PBI%20Page%202.png)
+![Image 7 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/PBI%20Page%203.png)
+![Image 8 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/dashboard_screenshots/PBI%20Page%204.png)
 
 ## Streamlit App
 ![Image 1 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/App%20Page.png)
@@ -54,7 +61,6 @@ The pipeline runs automatically on the 1st Tuesday of every month, with email al
 ![Image 4 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/Monitoring%20Page.png)
 ![Image 5 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/Dashboard%20Page.png)
 ![Image 6 alt text](https://github.com/pvvishwesh-lang/US-Macroeconomics-Indicators-Pipeline/blob/main/media/About%20Page.png)
-
 
 ## How to Run
 
