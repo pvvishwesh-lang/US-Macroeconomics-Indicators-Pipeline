@@ -40,6 +40,18 @@
       ],
       "catalog": "us_macroeconomics_tracker",
       "schema": "gold"
+    },
+    {
+      "name": "e77bfb8e",
+      "displayName": "Current US Recession Risk Percentage Snapshot",
+      "queryLines": [
+        "SELECT recession_probability * 100 as latest_recession_probability\n",
+        "FROM us_macroeconomics_tracker.gold.recession_predictions\n",
+        "ORDER BY obs_date DESC\n",
+        "LIMIT 1"
+      ],
+      "catalog": "us_macroeconomics_tracker",
+      "schema": "gold"
     }
   ],
   "pages": [
@@ -818,14 +830,14 @@
               {
                 "name": "main_query",
                 "query": {
-                  "datasetName": "085dc3ec",
+                  "datasetName": "e77bfb8e",
                   "fields": [
                     {
-                      "name": "max(recession_probability)",
-                      "expression": "MAX(`recession_probability`)"
+                      "name": "latest_recession_probability",
+                      "expression": "`latest_recession_probability`"
                     }
                   ],
-                  "disaggregated": false
+                  "disaggregated": true
                 }
               }
             ],
@@ -839,15 +851,7 @@
               "encodings": {
                 "columns": [
                   {
-                    "fieldName": "max(recession_probability)",
-                    "format": {
-                      "type": "number-percent",
-                      "decimalPlaces": {
-                        "type": "exact",
-                        "places": 2
-                      },
-                      "hideGroupSeparator": true
-                    },
+                    "fieldName": "latest_recession_probability",
                     "contentAlignment": "center",
                     "displayName": "Latest_Recession_Probability"
                   }
