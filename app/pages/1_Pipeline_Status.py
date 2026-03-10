@@ -10,8 +10,7 @@ if st.button("Refresh"):
 
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(
-        host=st.secrets["DATABRICKS_HOST"],
-        token=st.secrets["DATABRICKS_TOKEN"]
+        #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 with st.spinner("Fetching latest run..."):
     runs = list(st.session_state.client.jobs.list_runs(job_id=st.secrets["JOB_ID"], limit=10))

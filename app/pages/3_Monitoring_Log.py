@@ -10,8 +10,7 @@ st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(
-        host=st.secrets["DATABRICKS_HOST"],
-        token=st.secrets["DATABRICKS_TOKEN"]
+       # host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 @st.cache_data(ttl=600)
 def get_monitoring_data():

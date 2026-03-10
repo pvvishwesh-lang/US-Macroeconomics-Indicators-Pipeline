@@ -11,8 +11,7 @@ You can monitor the pipeline status and view logs by navigating to the Pipeline_
 
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(
-        host=st.secrets["DATABRICKS_HOST"],
-        token=st.secrets["DATABRICKS_TOKEN"]
+        #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 
 button=st.button("Run Pipeline")

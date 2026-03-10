@@ -9,8 +9,7 @@ st.markdown("View the live Databricks dashboard below:")
 
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(
-        host=st.secrets["DATABRICKS_HOST"],
-        token=st.secrets["DATABRICKS_TOKEN"]
+        #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 
 
