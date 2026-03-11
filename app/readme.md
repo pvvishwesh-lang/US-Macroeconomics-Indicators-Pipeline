@@ -1,4 +1,5 @@
 # BEFORE YOU START THE WEB APP
+## CREATE A .steamlit folder and then a file secrets.toml within the folder
 
 ## Add the following to .streamlit/secrets.toml:
 
