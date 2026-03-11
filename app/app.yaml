@@ -3,27 +3,12 @@ env:
   - name: STREAMLIT_GATHER_USAGE_STATS
     value: "false"
   - name: DATABRICKS_HOST
-    valueFrom:
-      secretKeyRef:
-        name: app-scope
-        key: DATABRICKS_HOST
+    value: {{secrets/app-scope/DATABRICKS_HOST}}
   - name: DATABRICKS_TOKEN
-    valueFrom:
-      secretKeyRef:
-        name: app-scope
-        key: DATABRICKS_TOKEN
+    value: {{secrets/app-scope/DATABRICKS_TOKEN}}
   - name: JOB_ID
-    valueFrom:
-      secretKeyRef:
-        name: app-scope
-        key: JOB_ID
+    value: {{secrets/app-scope/JOB_ID}}
   - name: HTTP_PATH
-    valueFrom:
-      secretKeyRef:
-        name: app-scope
-        key: HTTP_PATH
+    value: {{secrets/app-scope/HTTP_PATH}}
   - name: DASHBOARD_URL
-    valueFrom:
-      secretKeyRef:
-        name: app-scope
-        key: DASHBOARD_URL
+    value: {{secrets/app-scope/DASHBOARD_URL}}
