@@ -3,6 +3,9 @@ from databricks.sdk import WorkspaceClient
 from datetime import datetime
 import pandas as pd
 import time
+import os
+job_id = os.getenv("JOB_ID")
+
 st.title("Pipeline Status")
 
 if st.button("Refresh"):
@@ -13,7 +16,8 @@ if "client" not in st.session_state:
         #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 with st.spinner("Fetching latest run..."):
-    runs = list(st.session_state.client.jobs.list_runs(job_id=st.secrets["JOB_ID"], limit=10))
+    runs = list(st.session_state.client.jobs.list_runs(job_id=job_id#st.secrets["JOB_ID"]
+                                                       , limit=10))
     if runs:
         latest_run = runs[0]
         status = str(latest_run.state.life_cycle_state).split(".")[-1]   

@@ -1,17 +1,14 @@
-command: ["streamlit", "run", "app.py", "--server.port", "8080", "--server.address", "0.0.0.0", "--server.headless", "true"]
+command: ['streamlit', 'run', 'app.py']
 env:
+  - name: STREAMLIT_GATHER_USAGE_STATS
+    value: 'false'
   - name: DATABRICKS_HOST
-    valueFrom:
-      resourceKey: databricks-host
+    valueFrom: DATABRICKS_HOST
   - name: DATABRICKS_TOKEN
-    valueFrom:
-      resourceKey: databricks-token
+    valueFrom: DATABRICKS_TOKEN
   - name: JOB_ID
-    valueFrom:
-      resourceKey: job-id
+    valueFrom: JOB_ID
   - name: HTTP_PATH
-    valueFrom:
-      resourceKey: http-path
+    valueFrom: HTTP_PATH
   - name: DASHBOARD_URL
-    valueFrom:
-      resourceKey: dashboard-url
+    valueFrom: DASHBOARD_URL

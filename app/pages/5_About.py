@@ -1,6 +1,10 @@
 import streamlit as st
 from databricks import sql
 import pandas as pd
+import os
+host = os.getenv("DATABRICKS_HOST").replace("https://","")
+token = os.getenv("DATABRICKS_TOKEN")
+http_path = os.getenv("HTTP_PATH")
 
 st.title("About")
 
@@ -43,9 +47,9 @@ st.markdown("""
 @st.cache_data(ttl=600)
 def get_key_findings():
     conn = sql.connect(
-    server_hostname=st.secrets["DATABRICKS_HOST"].replace("https://",""),
-    http_path=st.secrets["HTTP_PATH"],
-    access_token=st.secrets["DATABRICKS_TOKEN"]
+    server_hostname=host, #st.secret["DATABRICKS_HOST"].replace("https://","")
+    http_path=http_path, #st.secret['DATABRICKS_TOKEN']
+    access_token=token #st.secret['HTTP_PATH']
     )
     QUERY1="SELECT obs_date, recession_probability FROM us_macroeconomics_tracker.gold.recession_predictions ORDER BY obs_date DESC LIMIT 1"
     QUERY2="SELECT obs_date, recession_probability FROM us_macroeconomics_tracker.gold.recession_predictions ORDER BY recession_probability DESC LIMIT 1"
