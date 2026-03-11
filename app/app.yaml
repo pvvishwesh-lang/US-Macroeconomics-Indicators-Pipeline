@@ -1,4 +1,29 @@
 command: ["streamlit", "run", "app.py", "--server.port", "8080", "--server.address", "0.0.0.0", "--server.headless", "true", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
 env:
-  - name: 'STREAMLIT_GATHER_USAGE_STATS'
-    value: 'false'
+  - name: STREAMLIT_GATHER_USAGE_STATS
+    value: "false"
+  - name: DATABRICKS_HOST
+    valueFrom:
+      secretKeyRef:
+        name: app-scope
+        key: DATABRICKS_HOST
+  - name: DATABRICKS_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: app-scope
+        key: DATABRICKS_TOKEN
+  - name: JOB_ID
+    valueFrom:
+      secretKeyRef:
+        name: app-scope
+        key: JOB_ID
+  - name: HTTP_PATH
+    valueFrom:
+      secretKeyRef:
+        name: app-scope
+        key: HTTP_PATH
+  - name: DASHBOARD_URL
+    valueFrom:
+      secretKeyRef:
+        name: app-scope
+        key: DASHBOARD_URL
