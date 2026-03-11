@@ -1,14 +1,17 @@
-command: ["streamlit", "run", "app.py", "--server.port", "8080", "--server.address", "0.0.0.0", "--server.headless", "true", "--server.enableCORS", "false", "--server.enableXsrfProtection", "false"]
+command: ["streamlit", "run", "app.py", "--server.port", "8080", "--server.address", "0.0.0.0", "--server.headless", "true"]
 env:
-  - name: STREAMLIT_GATHER_USAGE_STATS
-    value: "false"
   - name: DATABRICKS_HOST
-    value: {{secrets/app-scope/DATABRICKS_HOST}}
+    valueFrom:
+      resourceKey: databricks-host
   - name: DATABRICKS_TOKEN
-    value: {{secrets/app-scope/DATABRICKS_TOKEN}}
+    valueFrom:
+      resourceKey: databricks-token
   - name: JOB_ID
-    value: {{secrets/app-scope/JOB_ID}}
+    valueFrom:
+      resourceKey: job-id
   - name: HTTP_PATH
-    value: {{secrets/app-scope/HTTP_PATH}}
+    valueFrom:
+      resourceKey: http-path
   - name: DASHBOARD_URL
-    value: {{secrets/app-scope/DASHBOARD_URL}}
+    valueFrom:
+      resourceKey: dashboard-url
