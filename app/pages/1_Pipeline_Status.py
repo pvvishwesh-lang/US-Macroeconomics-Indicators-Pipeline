@@ -12,7 +12,7 @@ if st.button("Refresh"):
     st.rerun()
 
 if "client" not in st.session_state:
-    st.session_state.client = WorkspaceClient(
+    st.session_state.client = WorkspaceClient(host=os.getenv("DATABRICKS_HOST")
         #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 with st.spinner("Fetching latest run..."):

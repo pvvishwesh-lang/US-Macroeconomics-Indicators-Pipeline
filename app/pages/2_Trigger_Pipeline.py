@@ -1,6 +1,6 @@
 import streamlit as st
 from databricks.sdk import WorkspaceClient
-
+import os
 st.title("Trigger Pipeline")
 
 st.markdown("""
@@ -10,7 +10,7 @@ You can monitor the pipeline status and view logs by navigating to the Pipeline_
 
 
 if "client" not in st.session_state:
-    st.session_state.client = WorkspaceClient(
+    st.session_state.client = WorkspaceClient(host=os.getenv("DATABRICKS_HOST")
         #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
 
@@ -18,9 +18,9 @@ button=st.button("Run Pipeline")
 if button:
     try:
         with st.spinner("Triggering pipeline..."):
-            st.session_state.client.jobs.run_now(job_id=st.secrets["JOB_ID"])
+            st.session_state.client.jobs.run_now(job_id=os.getenv("JOB_ID"))
             st.success("Pipeline triggered successfully!")
-        runs = list(st.session_state.client.jobs.list_runs(job_id=st.secrets["JOB_ID"], limit=1))
+        runs = list(st.session_state.client.jobs.list_runs(job_id=os.getenv("JOB_ID"), limit=1))
         if runs:
             latest_run = runs[0]
             run_id=latest_run.run_id
