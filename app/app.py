@@ -3,9 +3,12 @@ from databricks.sdk import WorkspaceClient
 import os
 st.set_page_config(page_title="US Macroeconomic Pipeline", page_icon="📊", layout="wide")
 
+token = os.environ.pop("DATABRICKS_TOKEN", None)
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(host=os.getenv("DATABRICKS_HOST"))#host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
-
+if token:
+    os.environ["DATABRICKS_TOKEN"] = token
+    
 st.title("US Macroeconomic Indicators Pipeline")
 st.markdown("An end to end data engineering and ML pipeline built on Databricks using PySpark, ingesting Federal Reserve economic data from FRED API.")
 

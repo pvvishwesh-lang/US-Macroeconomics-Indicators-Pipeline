@@ -1,6 +1,8 @@
 import streamlit as st
 from databricks.sdk import WorkspaceClient
 import os
+os.environ.pop("DATABRICKS_TOKEN", None)
+
 st.title("Trigger Pipeline")
 
 st.markdown("""
@@ -8,12 +10,13 @@ Click the button below to trigger the pipeline manually.
 You can monitor the pipeline status and view logs by navigating to the Pipeline_Status and Monitoring Log pages.
 """)
 
-
+token = os.environ.pop("DATABRICKS_TOKEN", None)
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(host=os.getenv("DATABRICKS_HOST")
         #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
-
+if token:
+    os.environ["DATABRICKS_TOKEN"] = token
 button=st.button("Run Pipeline")
 if button:
     try:

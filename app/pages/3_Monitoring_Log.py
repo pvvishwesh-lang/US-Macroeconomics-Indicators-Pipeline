@@ -4,15 +4,18 @@ from databricks import sql
 import pandas as pd
 from datetime import datetime
 import os
+os.environ.pop("DATABRICKS_TOKEN", None)
 
 st.title("Monitoring Log")
 st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-
+token = os.environ.pop("DATABRICKS_TOKEN", None)
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(host=os.getenv("DATABRICKS_HOST")
        # host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
+if token:
+    os.environ["DATABRICKS_TOKEN"] = token
 @st.cache_data(ttl=600)
 def get_monitoring_data():
     conn = sql.connect(

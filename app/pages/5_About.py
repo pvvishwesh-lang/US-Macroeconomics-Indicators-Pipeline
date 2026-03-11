@@ -2,6 +2,7 @@ import streamlit as st
 from databricks import sql
 import pandas as pd
 import os
+os.environ.pop("DATABRICKS_TOKEN", None)
 
 st.title("About")
 

@@ -4,6 +4,7 @@ from datetime import datetime
 import pandas as pd
 import time
 import os
+
 job_id = os.getenv("JOB_ID")
 
 st.title("Pipeline Status")
@@ -11,10 +12,13 @@ st.title("Pipeline Status")
 if st.button("Refresh"):
     st.rerun()
 
+token = os.environ.pop("DATABRICKS_TOKEN", None)
 if "client" not in st.session_state:
     st.session_state.client = WorkspaceClient(host=os.getenv("DATABRICKS_HOST")
         #host=st.secrets["DATABRICKS_HOST"],token=st.secrets["DATABRICKS_TOKEN"]
     )
+if token:
+    os.environ["DATABRICKS_TOKEN"] = token
 with st.spinner("Fetching latest run..."):
     runs = list(st.session_state.client.jobs.list_runs(job_id=job_id#st.secrets["JOB_ID"]
                                                        , limit=10))
